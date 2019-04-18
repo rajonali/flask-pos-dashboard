@@ -7,6 +7,8 @@ from openpyxl import load_workbook
 from xlsx2html import xlsx2html
 
 import sqlite3
+from flask_bootstrap import Bootstrap
+
 
 
 inventory_db = 'databases/inventory.db'
@@ -30,53 +32,50 @@ import os
 
 
 
-static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'templates/bootstraptemplate/static')
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 
-app._static_folder = static_file_dir
+
+@app.route('/<path:path>')
+def static_proxy(path):
+  # send_static_file will guess the correct MIME type
+  return app.send_static_file(path)
 
 
-@app.route("/register", methods=["GET"])
+
+@app.route("/register.html", methods=["GET"])
 def register():
     return render_template('/register.html')
 
-@app.route("/login", methods=["GET"])
+@app.route("/login.html", methods=["GET"])
 def login():
     return render_template('/login.html')
 
-@app.route("/forgot_password", methods=["GET"])
+@app.route("/forgot-password.html", methods=["GET"])
 def forgot_password():
     return render_template('/forgot-password.html')
 
 
-@app.route("/404", methods=["GET"])
+@app.route("/404.html", methods=["GET"])
 def fourohfour():
     return render_template('/404.html')
 
 
 
 
-
-@app.route('/dir/<path:path>', methods=['GET'])
-def serve_file_in_dir(path):
  
-    if not os.path.isfile(os.path.join(static_file_dir, path)):
-        path = os.path.join(path, 'index.html')
- 
-    return send_from_directory(static_file_dir, path)
- 
-app.run(host='0.0.0.0',port=8080)
 
 
-@app.route('/')
+@app.route('/index.html')
 def hello_world():
 	return render_template('index.html')
 
 if __name__ == '__main__':
    app.run(debug = True)
+
+#app.run(host='0.0.0.0',port=8080)
 
 
 
