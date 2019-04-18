@@ -64,6 +64,10 @@ def fourohfour():
 
 
 
+@app.route("/salesreport.html", methods=["GET"])
+def salesreport():
+    return render_template('/salesreport.html')
+
 
  
 
