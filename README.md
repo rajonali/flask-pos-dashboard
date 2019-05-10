@@ -90,9 +90,6 @@ Host a webserver on the pi
 Have live refresh on the browser being used.
 Login with your creds to webserver. Pulls up main inventory page which is authenticated.
 
-
-Show the inventory table online in a neat grid format. Use emojis for icons.
-
 Make a database for data.
 
 Tables:
